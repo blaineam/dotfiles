@@ -230,7 +230,8 @@ function dev-proxy-tunnel {
     ssh -o "StrictHostKeyChecking=no" -tNR 5000:localhost:80 -p 2204 bmiller@dev-proxy.sqr.io -o ExitOnForwardFailure=yes &
 }
 
-function dev {
+function dev-env {
+    tmux send-keys 'pwd' C-m
     # Launch Vim Window
     tmux new-window
     tmux rename-window vim
@@ -254,12 +255,18 @@ function dev {
     tmux select-window -t 1
 }
 
+function dev {
+    tmux new -s DEV -d
+    tmux send-keys -t DEV 'dev-env' C-m
+    tmux attach -t DEV
+}
+
 function tdev {
-    tmate -S /tmp/tmate.sock new-session -s RST -n Shell -d
-    tmate -S /tmp/tmate.sock send-keys -t RST 'q'
-    tmate -S /tmp/tmate.sock send-keys -t RST 'dev' C-m
-    tmate -S /tmp/tmate.sock send-keys -t RST 'tmate show-messages' C-m
-    tmate -S /tmp/tmate.sock attach -t RST
+    tmate -S /tmp/tmate.sock new-session -s TDEV -n Shell -d
+    tmate -S /tmp/tmate.sock send-keys -t TDEV 'q'
+    tmate -S /tmp/tmate.sock send-keys -t TDEV 'dev-env' C-m
+    tmate -S /tmp/tmate.sock send-keys -t TDEV 'tmate show-messages' C-m
+    tmate -S /tmp/tmate.sock attach -t TDEV
 }
 
 function thor {
