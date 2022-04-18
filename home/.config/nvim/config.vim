@@ -206,7 +206,48 @@ autocmd FileType * autocmd CursorMovedI,InsertLeave * call functions#ClosePrevie
 autocmd FileType * autocmd BufWritePre <buffer> call functions#StripTrailingWhitespace()
 autocmd QuickFixCmdPost * call asyncrun#quickfix_toggle(8, 1)
 
-let @d='/^\(<<<<<<<\||||||||\|=======\|>>>>>>>\)' " Navigating merge conflict
+let @d='/^\(<<<<<<<\||||||||\|=======\|>>>>>>>\)
+' " Navigating merge conflict
 " }}}
 
 " vim: ft=vim foldlevel=0 foldmethod=marker
+
+
+set nofoldenable
+" colorscheme nord
+"set redrawtime=10000
+if (has("termguicolors"))
+ set termguicolors
+endif
+
+" Theme
+syntax enable
+colorscheme OceanicNext
+
+let g:pipemysql_login_info = [
+    \ {
+    \    'description'    : 'operations',
+    \    'mysql_hostname' : 'mysql.rs.docker',
+    \    'mysql_port'     : '33069',
+    \    'mysql_username' : 'root',
+    \    'mysql_password' : 'root',
+    \    'mysql_database' : 'operations_aje_main'
+    \ },
+    \ {
+    \    'description'    : 'orders-api',
+    \    'mysql_hostname' : 'mysql.rs.docker',
+    \    'mysql_port'     : '33069',
+    \    'mysql_username' : 'root',
+    \    'mysql_password' : 'root',
+    \    'mysql_database' : 'orders_api_main'
+    \ }
+\ ]
+
+" trigger `autoread` when files chages on disk
+    set autoread
+    autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+" notification after file change
+    autocmd FileChangedShellPost *
+            \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl Nonen
+
+    autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue PrettierAsync
