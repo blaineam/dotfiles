@@ -142,3 +142,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 " }}}
 
 " vim: ft=vim foldlevel=0 foldmethod=marker
+
+Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}
+Plug 'prettier/vim-prettier'
+Plug 'mhartington/oceanic-next'
