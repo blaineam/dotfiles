@@ -158,3 +158,175 @@ function load_rvm () {
 }
 
 . ~/.zsh/functions/docker.zsh
+
+
+function gPo {
+    read -q "reply?push to: $(git rev-parse --abbrev-ref HEAD) ? (N/y)"
+    echo
+
+    if [[ $reply =~ ^[Yy]$ ]]
+    then
+        git push origin $(git rev-parse --abbrev-ref HEAD)
+    else
+        echo "Aborting!"
+    fi
+}
+
+function gpo {
+    read -q "reply?pull from: $(git rev-parse --abbrev-ref HEAD) ? (N/y)"
+    echo
+
+    if [[ $reply =~ ^[Yy]$ ]]
+    then
+        git pull origin $(git rev-parse --abbrev-ref HEAD)
+    else
+        echo "Aborting!"
+    fi
+}
+
+function dkr-stopall {
+    read -q "reply?Are you sure you'd like to stop everything? "
+    echo
+
+    if [[ $reply =~ ^[Yy]$ ]]
+    then
+        docker stop $(docker ps -a -q)
+    else
+        echo "Aborting!"
+    fi
+}
+
+
+
+function start-repo {
+    ../docker-rs/docker.sh symlink
+    ../docker-rs/docker.sh restart
+    ../docker-rs/docker.sh proxy
+    dev-proxy-tunnel
+    aws-rotate-iam-keys --profile default,rsc-main
+    ./bin/docker.sh restart > /dev/null
+}
+
+function stop-repo {
+    ../docker-rs/docker.sh stop
+    ./bin/docker.sh stop
+}
+
+
+function stop-operations {
+    cd $HOME/operations
+    stop-repo
+}
+
+
+function start-operations {
+    cd $HOME/operations
+    start-repo
+}
+
+
+function dev-proxy-tunnel {
+    pkill -f dev-proxy.sqr.io
+    ssh -o "StrictHostKeyChecking=no" -tNR 5000:localhost:80 -p 2204 bmiller@dev-proxy.sqr.io -o ExitOnForwardFailure=yes &
+}
+
+function dev {
+    # Launch Vim Window
+    tmux new-window
+    tmux rename-window vim
+    tmux send-keys 'vim' C-m
+
+    # Launch Docker Shell Window
+    tmux new-window
+    tmux rename-window docker
+    tmux send-keys './bin/docker.sh zsh' C-m
+
+    # Launch SQL Window
+    tmux new-window
+    tmux rename-window sql
+    tmux send-keys 'vim ./sql.mysql' C-m
+
+    # Launch Log Window
+    tmux new-window
+    tmux rename-window logs
+    tmux send-keys 'dkr-logs' C-m
+
+    tmux select-window -t 1
+}
+
+function tdev {
+    tmate -S /tmp/tmate.sock new-session -s RST -n Shell -d
+    tmate -S /tmp/tmate.sock send-keys -t RST 'q'
+    tmate -S /tmp/tmate.sock send-keys -t RST 'dev' C-m
+    tmate -S /tmp/tmate.sock send-keys -t RST 'tmate show-messages' C-m
+    tmate -S /tmp/tmate.sock attach -t RST
+}
+
+function thor {
+    cd $HOME/operations
+    tdev
+}
+
+function oden {
+    cd $HOME/operations
+    dev
+}
+
+function t {
+    if [ $# -ne 1 ]; then
+      echo "Usage: `basename $0` session-name"
+      exit;
+    fi
+
+    session_name="$1"
+
+    tmux has-session -t ${session_name} 2> /dev/null
+
+    if [ $? != 0 ]
+    then
+      # Create the session with a default shell window
+      tmux new-session -s "${session_name}" -n Shell -d
+
+      # Create a window dedicated for my editor
+      tmux new-window -n vim -t "${session_name}:2"
+      tmux send-keys -t "${session_name}:2" 'vim' C-m
+
+      # Start out on the first window when we attach
+      tmux select-window -t "${session_name}:1"
+    fi
+
+    # tmux -CC attach -t "${session_name}"
+    tmux attach -t "${session_name}"
+}
+
+# this is an override for the function in ~/.zsh/functions/docker.zsh
+function dkr-proxy {
+    mkdir -p ~/.config/nginx-proxy/{html,vhost.d,htpasswd,certs}
+    touch ~/.config/nginx-proxy/proxy.conf
+
+    docker stop proxy && \
+        docker rm proxy
+
+    docker pull jwilder/nginx-proxy && \
+        dkr-run --name proxy -d \
+            -p 80:80 \
+            -v /var/run/docker.sock:/tmp/docker.sock:ro \
+            -v ~/.config/nginx-proxy/html:/usr/share/nginx/html:rw \
+            -v ~/.config/nginx-proxy/proxy.conf:/etc/nginx/conf.d/custom-proxy.conf:ro \
+            -v ~/.config/nginx-proxy/vhost.d/:/etc/nginx/vhost.d:rw \
+            -v ~/.config/nginx-proxy/htpasswd/:/etc/nginx/htpasswd:ro \
+            --log-opt max-size=5M \
+            --net bridge \
+            --label com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy=true \
+            jwilder/nginx-proxy
+
+    # docker stop ssl && \
+    #     docker rm ssl
+
+    #     dkr-run --name ssl -d \
+    #         -v /var/run/docker.sock:/var/run/docker.sock:ro \
+    #         -v ~/.config/nginx-proxy/certs:/etc/nginx/certs:rw \
+    #         --volumes-from proxy \
+    #         jrcs/letsencrypt-nginx-proxy-companion
+    docker network connect rsc proxy 2> /dev/null || true
+}
