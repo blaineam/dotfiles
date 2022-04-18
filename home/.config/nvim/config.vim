@@ -206,8 +206,8 @@ autocmd FileType * autocmd CursorMovedI,InsertLeave * call functions#ClosePrevie
 autocmd FileType * autocmd BufWritePre <buffer> call functions#StripTrailingWhitespace()
 autocmd QuickFixCmdPost * call asyncrun#quickfix_toggle(8, 1)
 
-let @d='/^\(<<<<<<<\||||||||\|=======\|>>>>>>>\)
-' " Navigating merge conflict
+let @d='/^\(<<<<<<<\||||||||\|=======\|>>>>>>>\)'
+" Navigating merge conflict
 " }}}
 
 " vim: ft=vim foldlevel=0 foldmethod=marker

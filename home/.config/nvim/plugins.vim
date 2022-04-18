@@ -18,7 +18,7 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'aquach/vim-http-client'
 Plug 'junegunn/indentLine'
 Plug 'enricobacis/paste.vim'
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 Plug 'Konfekt/FastFold'
 " }}}
 
@@ -96,7 +96,7 @@ Plug 'digitaltoad/vim-jade'
 " }}}
 
 " PHP {{{
-Plug 'vim-vdebug/vdebug'
+" Plug 'vim-vdebug/vdebug'
 Plug 'tobyS/pdv'
 Plug 'tobyS/vmustache'
 Plug 'alvan/vim-php-manual'
