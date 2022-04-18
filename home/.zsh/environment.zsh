@@ -19,3 +19,5 @@ set -o emacs
 [ -e "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:$PATH"
 
 [ -e /opt/asdf-vm/asdf.sh ] && . /opt/asdf-vm/asdf.sh
+
+export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"
