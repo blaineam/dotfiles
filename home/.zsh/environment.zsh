@@ -20,4 +20,9 @@ set -o emacs
 
 [ -e /opt/asdf-vm/asdf.sh ] && . /opt/asdf-vm/asdf.sh
 
+
+alias vim=nvim
+alias vi=nvim
+
 export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"
+
