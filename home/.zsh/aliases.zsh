@@ -13,6 +13,8 @@ alias E="SUDO_EDITOR=\"emacsclient -t -a emacs\" sudoedit"
 
 alias g='git'
 
+alias gwc='g whatchanged'
+
 alias gwt='g worktree'
 alias gwtl='gwt list'
 alias gwta='gwt add'
@@ -28,6 +30,7 @@ alias gf='g fetch'
 
 alias ga='g add'
 alias gap='ga -p'
+alias gau='ga --update'
 
 alias gc='g commit --verbose'
 alias gca='gc --amend'
@@ -66,3 +69,4 @@ alias gstsu='gsts -u'
 alias dpss='docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Ports}}" | sort -k2'
 
 alias mutt='TERM=xterm-256color neomutt'
+alias mux=tmuxinator
