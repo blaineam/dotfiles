@@ -251,3 +251,7 @@ let g:pipemysql_login_info = [
             \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl Nonen
 
     autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue PrettierAsync
+
+inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+

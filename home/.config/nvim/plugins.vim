@@ -18,7 +18,7 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'aquach/vim-http-client'
 Plug 'junegunn/indentLine'
 Plug 'enricobacis/paste.vim'
-" Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
 Plug 'Konfekt/FastFold'
 " }}}
 
