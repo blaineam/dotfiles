@@ -202,10 +202,17 @@ function start-repo {
     ../docker-rs/docker.sh symlink
     ../docker-rs/docker.sh restart
     ../docker-rs/docker.sh proxy
-    dev-proxy-tunnel
     aws-rotate-iam-keys --profile default,rsc-main
     ./bin/docker.sh restart > /dev/null
 }
+
+function start-repo-no-keys {
+    ../docker-rs/docker.sh symlink
+    ../docker-rs/docker.sh restart
+    ../docker-rs/docker.sh proxy
+    ./bin/docker.sh restart > /dev/null
+}
+
 
 function stop-repo {
     ../docker-rs/docker.sh stop
