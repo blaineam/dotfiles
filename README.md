@@ -38,5 +38,5 @@ $ curl -o- https://raw.githubusercontent.com/techyowl/dotfiles/main/install.sh |
 
 Shortened url:
 ```bash
-$ curl -Lo- https://owl.zone/KTXdN | bash
+$ curl -Lo- https://go.millers.cloud/dotfiles | bash
 ```
