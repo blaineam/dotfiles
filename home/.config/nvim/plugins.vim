@@ -20,6 +20,7 @@ Plug 'junegunn/indentLine'
 Plug 'enricobacis/paste.vim'
 Plug 'SirVer/ultisnips'
 Plug 'Konfekt/FastFold'
+Plug 'diepm/vim-rest-console'
 " }}}
 
 " Themes and appearance {{{
