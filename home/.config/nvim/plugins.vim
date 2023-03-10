@@ -24,13 +24,14 @@ Plug 'diepm/vim-rest-console'
 " }}}
 
 " Themes and appearance {{{
-Plug 'spf13/vim-colors'
-Plug 'altercation/vim-colors-solarized'
-Plug 'sickill/vim-monokai'
-Plug 'jnurmine/Zenburn'
-Plug 'morhetz/gruvbox'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'spf13/vim-colors'
+" Plug 'altercation/vim-colors-solarized'
+" Plug 'sickill/vim-monokai'
+" Plug 'jnurmine/Zenburn'
+" Plug 'morhetz/gruvbox'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+Plug 'mhartington/oceanic-next'
 " }}}
 
 " Programming {{{
@@ -48,9 +49,10 @@ Plug 'fatih/vim-nginx'
 Plug 'janko-m/vim-test'
 Plug 'matze/vim-ini-fold'
 Plug 'uarun/vim-protobuf'
+Plug 'prettier/vim-prettier'
 
 if executable('ctags')
-  Plug 'majutsushi/tagbar'
+"  Plug 'majutsushi/tagbar'
 endif
 
 " Git and VCS {{{
@@ -66,7 +68,7 @@ Plug 'jlcrochet/vim-razor'
 " }}}
 
 " Elixir {{{
-Plug 'elixir-editors/vim-elixir'
+" Plug 'elixir-editors/vim-elixir'
 " }}}
 
 " Go {{{
@@ -74,7 +76,7 @@ Plug 'fatih/vim-go'
 " }}}
 
 " Haskell {{{
-Plug 'neovimhaskell/haskell-vim'
+" Plug 'neovimhaskell/haskell-vim'
 " }}}
 
 " HTML and CSS {{{
@@ -114,8 +116,8 @@ Plug 'Glench/Vim-Jinja2-Syntax'
 " }}}
 
 " Ruby {{{
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-endwise'
+" Plug 'tpope/vim-rails'
+" Plug 'tpope/vim-endwise'
 " }}}
 
 " Rust {{{
@@ -129,9 +131,8 @@ Plug 'NLKNguyen/pipe.vim'
 " }}}
 
 " Swift {{{
-Plug 'keith/swift.vim'
+" Plug 'keith/swift.vim'
 " }}}
-
 
 " }}}
 
@@ -148,7 +149,3 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 " }}}
 
 " vim: ft=vim foldlevel=0 foldmethod=marker
-
-Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}
-Plug 'prettier/vim-prettier'
-Plug 'mhartington/oceanic-next'
