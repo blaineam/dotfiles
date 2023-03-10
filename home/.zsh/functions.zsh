@@ -159,7 +159,6 @@ function load_rvm () {
 
 . ~/.zsh/functions/docker.zsh
 
-
 function gPo {
     read -q "reply?push to: $(git rev-parse --abbrev-ref HEAD) ? (N/y)"
     echo
@@ -196,21 +195,19 @@ function dkr-stopall {
     fi
 }
 
-
-
 function start-repo {
     ../docker-rs/docker.sh symlink
     ../docker-rs/docker.sh restart
     ../docker-rs/docker.sh proxy
     aws-rotate-iam-keys --profile default,rsc-main
-    ./bin/docker.sh restart > /dev/null
+    ./bin/docker.sh restart
 }
 
 function start-repo-no-keys {
     ../docker-rs/docker.sh symlink
     ../docker-rs/docker.sh restart
     ../docker-rs/docker.sh proxy
-    ./bin/docker.sh restart > /dev/null
+    ./bin/docker.sh restart
 }
 
 
@@ -229,12 +226,6 @@ function stop-operations {
 function start-operations {
     cd $HOME/operations
     start-repo
-}
-
-
-function dev-proxy-tunnel {
-    pkill -f dev-proxy.sqr.io
-    ssh -o "StrictHostKeyChecking=no" -tNR 5000:localhost:80 -p 2204 bmiller@dev-proxy.sqr.io -o ExitOnForwardFailure=yes &
 }
 
 function dev-env {
@@ -313,7 +304,6 @@ function t {
     tmux attach -t "${session_name}"
 }
 
-# this is an override for the function in ~/.zsh/functions/docker.zsh
 function dkr-proxy {
     mkdir -p ~/.config/nginx-proxy/{html,vhost.d,htpasswd,certs}
     touch ~/.config/nginx-proxy/proxy.conf
@@ -334,13 +324,5 @@ function dkr-proxy {
             --label com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy=true \
             jwilder/nginx-proxy
 
-    # docker stop ssl && \
-    #     docker rm ssl
-
-    #     dkr-run --name ssl -d \
-    #         -v /var/run/docker.sock:/var/run/docker.sock:ro \
-    #         -v ~/.config/nginx-proxy/certs:/etc/nginx/certs:rw \
-    #         --volumes-from proxy \
-    #         jrcs/letsencrypt-nginx-proxy-companion
     docker network connect rsc proxy 2> /dev/null || true
 }
