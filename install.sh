@@ -35,7 +35,7 @@ if ${failed} == true; then
     echo "${YELLOW}${BOLD}Arch: ${NORMAL}sudo pacman -S git zsh"
     echo "${YELLOW}${BOLD}Centos: ${NORMAL}sudo yum install git zsh"
     echo "${YELLOW}${BOLD}Fedora: ${NORMAL}sudo dnf install git zsh"
-    echo "${YELLOW}${BOLD}Homebrew: ${NORMAL}sudo brew install git zsh"
+    echo "${YELLOW}${BOLD}Homebrew: ${NORMAL}brew install git zsh"
     echo "${YELLOW}${BOLD}Ubuntu: ${NORMAL}apt-get install git zsh"
     echo "After doing so, re-run this script."
     exit 1
@@ -50,7 +50,7 @@ done
 
 if ${plugin_failed} == true; then
     echo "${NORMAL}These are some packages that you should install to make full use of the dotfiles:"
-    echo "${YELLOW}${BOLD}Homebrew: ${NORMAL}sudo brew install the_silver_searcher neovim mysql-client aws-cli aws-rotate-iam-keys tmate tmux"
+    echo "${YELLOW}${BOLD}Homebrew: ${NORMAL}brew install the_silver_searcher neovim mysql-client aws-cli aws-rotate-iam-keys tmate tmux"
     echo "${YELLOW}${BOLD}Ubuntu: ${NORMAL}apt-get install silversearcher-ag neovim mysql-client aws-cli aws-rotate-iam-keys tmate tmux"
 fi
 
