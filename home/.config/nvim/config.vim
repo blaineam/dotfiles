@@ -228,25 +228,6 @@ endif
 syntax enable
 colorscheme OceanicNext
 
-let g:pipemysql_login_info = [
-    \ {
-    \    'description'    : 'operations',
-    \    'mysql_hostname' : 'mysql.rs.docker',
-    \    'mysql_port'     : '33069',
-    \    'mysql_username' : 'root',
-    \    'mysql_password' : 'root',
-    \    'mysql_database' : 'operations_aje_main'
-    \ },
-    \ {
-    \    'description'    : 'orders-api',
-    \    'mysql_hostname' : 'mysql.rs.docker',
-    \    'mysql_port'     : '33069',
-    \    'mysql_username' : 'root',
-    \    'mysql_password' : 'root',
-    \    'mysql_database' : 'orders_api_main'
-    \ }
-\ ]
-
 " trigger `autoread` when files chages on disk
     set autoread
     autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
