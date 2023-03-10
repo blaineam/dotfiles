@@ -25,6 +25,10 @@ set mousehide
 scriptencoding utf-8
 set encoding=utf-8
 
+" Increase Syntax Highlighting allowed timing {{{
+set redrawtime=10000
+" }}}
+
 if has ('x') && has ('gui') " On Linux use + register for copy-paste
   set clipboard=unnamedplus
 elseif has ('gui')          " On mac and Windows, use * register for copy-paste
