@@ -41,6 +41,19 @@ if ${failed} == true; then
     exit 1
 fi
 
+plugin_failed=false
+plugin_packages=( ag the_silver_searcher mysql nvim node npm aws-cli aws-rotate-iam-keys tmate tmux )
+for plugin_package in "${plugin_packages[@]}"
+do
+    command -v ${plugin_package} >/dev/null 2>&1 || { echo "${YELLOW}${plugin_package} is missing."; plugin_failed=true; }
+done
+
+if ${plugin_failed} == true; then
+    echo "${NORMAL}These are some packages that you should install to make full use of the dotfiles:"
+    echo "${YELLOW}${BOLD}Homebrew: ${NORMAL}sudo brew install the_silver_searcher neovim mysql-client aws-cli aws-rotate-iam-keys tmate tmux"
+    echo "${YELLOW}${BOLD}Ubuntu: ${NORMAL}apt-get install silversearcher-ag neovim mysql-client aws-cli aws-rotate-iam-keys tmate tmux"
+fi
+
 git clone https://github.com/andsens/homeshick.git $HOME/.homesick/repos/homeshick
 ${HOME}/.homesick/repos/homeshick/bin/homeshick clone -b https://github.com/techyowl/dotfiles
 
