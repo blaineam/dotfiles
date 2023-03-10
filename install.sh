@@ -42,7 +42,7 @@ if ${failed} == true; then
 fi
 
 plugin_failed=false
-plugin_packages=( ag the_silver_searcher mysql nvim node npm aws-cli aws-rotate-iam-keys tmate tmux )
+plugin_packages=( ag mysql nvim node npm aws aws-rotate-iam-keys tmate tmux )
 for plugin_package in "${plugin_packages[@]}"
 do
     command -v ${plugin_package} >/dev/null 2>&1 || { echo "${YELLOW}${plugin_package} is missing."; plugin_failed=true; }
