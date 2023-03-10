@@ -8,8 +8,9 @@ if (has("termguicolors"))
 endif
 
 set background=dark
-let g:gruvbox_contrast_dark='soft'
-colorscheme gruvbox
+" Theme
+syntax enable
+colorscheme OceanicNext
 
 hi Normal ctermbg=none
 " }}}
@@ -223,10 +224,6 @@ set nofoldenable
 if (has("termguicolors"))
  set termguicolors
 endif
-
-" Theme
-syntax enable
-colorscheme OceanicNext
 
 " trigger `autoread` when files chages on disk
     set autoread
