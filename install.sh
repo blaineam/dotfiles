@@ -50,16 +50,22 @@ done
 
 if ${plugin_failed} == true; then
     echo "${NORMAL}These are some packages that you should install to make full use of the dotfiles:"
-    echo "${YELLOW}${BOLD}Homebrew: ${NORMAL}brew install the_silver_searcher neovim mysql-client aws-cli aws-rotate-iam-keys tmate tmux"
+    echo "${YELLOW}${BOLD}Homebrew: ${NORMAL}brew install the_silver_searcher neovim mysql-client awscli aws-rotate-iam-keys tmate tmux"
     echo "${YELLOW}${BOLD}Ubuntu: ${NORMAL} echo silversearcher-ag neovim mysql-client awscli aws-rotate-iam-keys tmate tmux | xargs -n 1 sudo apt-get install"
 fi
 
 git clone https://github.com/andsens/homeshick.git $HOME/.homesick/repos/homeshick
-${HOME}/.homesick/repos/homeshick/bin/homeshick clone -b https://github.com/techyowl/dotfiles
+${HOME}/.homesick/repos/homeshick/bin/homeshick clone -b https://github.com/blaineam/dotfiles
 
 # @todo: loop through pre-existing linkable files and directories and move them to `.dotsave` or something.
 
 ${HOME}/.homesick/repos/homeshick/bin/homeshick link -b
+
+if command -v defaults >/dev/null 2>&1
+then
+    defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "~/.config/iterm2"
+    defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
+fi
 
 echo "${GREEN}${BOLD}Installation complete! You can now run \`sudo chsh -s /bin/zsh $(whoami)\` to set zsh as your default shell."
 echo "${NORMAL}"
