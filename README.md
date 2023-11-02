@@ -33,10 +33,10 @@ quite amazing.
 ## Installation ##
 You can quickly install these dotfiles by running the following command:
 ```bash
-$ curl -o- https://raw.githubusercontent.com/techyowl/dotfiles/main/install.sh | bash
+$ curl -o- https://raw.githubusercontent.com/blaineam/dotfiles/main/install.sh | bash
 ```
 
 Shortened url:
 ```bash
-$ curl -Lo- https://go.millers.cloud/dotfiles | bash
+$ curl -Lo- https://go.wemiller.com/dotfiles | bash
 ```
