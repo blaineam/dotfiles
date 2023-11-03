@@ -11,6 +11,8 @@ set background=dark
 " Theme
 syntax enable
 colorscheme OceanicNext
+" fix bad contrast for unused highlight
+hi default CocUnusedHighlight ctermfg=Gray guifg=#aaaaaa guibg=NONE
 
 hi Normal ctermbg=none
 " }}}
