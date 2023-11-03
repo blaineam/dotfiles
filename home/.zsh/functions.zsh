@@ -196,23 +196,32 @@ function dkr-stopall {
 }
 
 function start-repo {
+    local DIR="$(pwd)"
+    cd ../docker-rs
     ../docker-rs/docker.sh symlink
     ../docker-rs/docker.sh restart
     ../docker-rs/docker.sh proxy
     aws-rotate-iam-keys --profile default,rsc-main
+    cd "$DIR"
     ./bin/docker.sh restart
 }
 
 function start-repo-no-keys {
+    local DIR="$(pwd)"
+    cd ../docker-rs
     ../docker-rs/docker.sh symlink
     ../docker-rs/docker.sh restart
     ../docker-rs/docker.sh proxy
+    cd "$DIR"
     ./bin/docker.sh restart
 }
 
 
 function stop-repo {
+    local DIR="$(pwd)"
+    cd ../docker-rs
     ../docker-rs/docker.sh stop
+    cd "$DIR"
     ./bin/docker.sh stop
 }
 
@@ -238,7 +247,7 @@ function dev-env {
     # Launch Docker Shell Window
     tmux new-window
     tmux rename-window docker
-    tmux send-keys './bin/docker.sh zsh' C-m
+    tmux send-keys './bin/docker.sh bash' C-m
 
     # Launch SQL Window
     tmux new-window
