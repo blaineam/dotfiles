@@ -34,3 +34,5 @@ char
 
 # # Moved down so I can remap some of the fzf bindings
 load_file "bindkeys.zsh"
+
+set-aws-env default

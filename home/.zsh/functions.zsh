@@ -202,6 +202,7 @@ function start-repo {
     ../docker-rs/docker.sh restart
     ../docker-rs/docker.sh proxy
     aws-rotate-iam-keys --profile default,rsc-main
+    set-aws-env default
     cd "$DIR"
     ./bin/docker.sh restart
 }
@@ -335,3 +336,12 @@ function dkr-proxy {
 
     docker network connect rsc proxy 2> /dev/null || true
 }
+
+function set-aws-env() {
+    typeset -A AWS_SETTINGS=($(awk -F"=" "/\[$1\]/{ x = NR + 2; next }(NR <= x){ printf \"%s %s \", \$1, \$2 }" ~/.aws/credentials))
+    for k v in ${(kv)AWS_SETTINGS}
+    do
+        export ${k:u}=$v
+    done
+}
+
